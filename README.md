@@ -15,7 +15,7 @@ Collection of Themes Created for Datafrog
 -insert back the sd card to the frogenator 9000!
 
 Notes:
--To use no bgm: just copy pagefile.sys and paste to resource folder
+To use no bgm, just copy pagefile.sys and paste to resource folder
 
 Enjoy!
  
