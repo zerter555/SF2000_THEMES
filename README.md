@@ -1,7 +1,3 @@
-# SF2000_THEMES
-Collection of Themes Created for Datafrog
-
-
 # How to apply theme:
 
 -insert sd card to PC
