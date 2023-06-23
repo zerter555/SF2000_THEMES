@@ -17,5 +17,5 @@ Collection of Themes Created for Datafrog
 Enjoy!
  
 # Support/Donations
-If you enjoy the theme and like to support me and other projects im working on here is the dono link:
+If you enjoy the themes and like to support me and other projects im working on here is the dono link:
  https://www.paypal.com/paypalme/zerter555
