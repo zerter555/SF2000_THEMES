@@ -1,0 +1,167 @@
+<html>
+<title>
+SF2000 Collection
+</title>
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+        .header{
+            background-color: black;
+            margin: -8px;
+            height: 120px;
+        }
+        .hdrLogo{
+            padding-top: 10px;
+            padding-left: 25px;
+        }
+        .donateBtn{
+            float: right;
+            height: 90px;
+            padding-top: 30px;
+            padding-right: 50px;
+            cursor: pointer;
+        }
+        body{
+            background-color: #313539 !important;
+            color: #ffffff !important;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        .btn-group button {
+        background-color: #04AA6D; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        float: left; /* Float the buttons side by side */
+        margin-top: 20px;
+        }
+
+        /* Clear floats (clearfix hack) */
+        .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+
+        .btn-group button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+        .btn-group button:hover {
+        background-color: #3e8e41;
+        }
+
+        .downloadBtn{
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            cursor: pointer;
+        }
+
+        .sampleImg{
+            height: 180px;
+            width: 240px;
+        }
+
+        .mgn-lft-20{
+            margin-left: 20px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp" ng-controller="ctrl">
+    <div class="header">
+        <img class="hdrLogo" src="https://media.discordapp.net/attachments/1092831839955193987/1109693088487710730/Datafrog_basic_LGBT_variant_boot_logo.jpg">
+        <img class="donateBtn" onclick="location.href='https://www.paypal.com/paypalme/zerter555';" src="https://raw.githubusercontent.com/aha999/DonateButtons/master/Paypal.png">
+    </div>
+    <div>
+    <div class="mgn-lft-20">
+        <h2>SF2000 Theme Collection</h2>
+        <span>Page By: Zerter</span>
+    </div>
+    <div class="mgn-lft-20 btn-group">
+        <button ng-click="collection = 1">Themes</button>
+        <button ng-click="collection = 2">Boot Logo</button>
+        <button ng-click="collection = 3">BGM</button>
+    </div>
+    <span>Notes: please join discord link to view some download links </span><a href="https://discord.gg/retrohandhelds">https://discord.gg/retrohandhelds</a>
+
+    <div class="container-fluid" ng-if="collection == 1">
+        <h2>THEMES</h2>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Theme Name</th>
+                <th>Sample</th>
+                <th>Description</th>
+                <th>Author</th>
+                <th>Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="theme in themes | filter : paginate">
+                <td>{{$index + 1}}</td>
+                <td>{{theme[0]}}</td>
+                <td><img class="sampleImg" src={{theme[1]}}></td>
+                <td>{{theme[2]}}</td>
+                <td>{{theme[3]}}</td>
+                <td>
+                    <div style="position: relative; height: 100%; width: 100%;">
+                        <img class="downloadBtn" src="https://cdn-icons-png.flaticon.com/512/0/532.png" ng-click="downloadLink(theme[4])">
+                    </div>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+          <pagination total-items="totalItems" ng-model="currentPage"
+            max-size="5" boundary-links="true"
+            items-per-page="numPerPage" class="pagination-sm">
+          </pagination>
+      </div>
+    </div>
+</body>
+<script src="http://code.angularjs.org/1.2.16/angular.js"></script>
+<script src="http://code.angularjs.org/1.2.16/angular-resource.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+<script type="text/javascript">
+    var app = angular.module('myApp', ['ui.bootstrap', 'ngResource']);
+
+    app.controller('ctrl', function($scope, $http) {
+      $scope.collection = 1;
+      $http.get("https://sheets.googleapis.com/v4/spreadsheets/1DbFxX6gfZqZ3pOdz4BlZ_QiSrhT3eH6mVpMBJvYpjM8/values/theme/?alt=json&key=AIzaSyBrB6s7WwRnMDOHCWALK1jPS-9tXMLuc7s")
+            .success(function(response) {$scope.themes = response.values;
+            $scope.themes.splice(0, 1);
+
+            $scope.totalItems = $scope.themes.length;
+            $scope.currentPage = 1;
+            $scope.numPerPage = 5;
+            
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = $scope.themes.indexOf(value);
+                return (begin <= index && index < end);
+            };
+            console.log($scope.themes);
+            console.log( $scope.totalItems);
+
+           
+            });
+
+    $scope.downloadLink = function(test){
+        location.href= test;
+    }
+    });
+</script>
+</html>
